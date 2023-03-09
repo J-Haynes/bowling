@@ -13,18 +13,18 @@
 // ]
 
 // Score 119 (with spares, strikes and a double strike):
-const frames = [
-  [1, 2],
-  [6, 4],
-  [5, 4],
-  [10, 0],
-  [7, 2],
-  [10, 0],
-  [10, 0],
-  [5, 2],
-  [7, 0],
-  [4, 4],
-]
+// const frames = [
+//   [1, 2],
+//   [6, 4],
+//   [5, 4],
+//   [10, 0],
+//   [7, 2],
+//   [10, 0],
+//   [10, 0],
+//   [5, 2],
+//   [7, 0],
+//   [4, 4],
+// ]
 
 // Score 71 (with spares):
 // const frames = [
@@ -41,14 +41,25 @@ const frames = [
 // ]
 
 // Score 300 (perfect game):
-// const frames = [ // [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 10, 10] // ]
+const frames = [
+  [10, 0],
+  [10, 0],
+  [10, 0],
+  [10, 0],
+  [10, 0],
+  [10, 0],
+  [10, 0],
+  [10, 0],
+  [10, 0],
+  [10, 10, 10],
+]
 
 let score = 0
 
 function scoreGame(frames) {
   let firstBall = 0
   let secondBall = 1
-  for (let i = 0; i < frames.length; i++) {
+  for (let i = 0; i < frames.length - 2; i++) {
     score += frames[i][firstBall] + frames[i][secondBall]
     // strikes and double strikes
     if (frames[i][firstBall] === 10) {
@@ -66,6 +77,22 @@ function scoreGame(frames) {
     ) {
       score += frames[i + 1][firstBall]
     }
+  }
+  // scoring frames 9 & 10
+  score += frames[8][firstBall] + frames[8][secondBall]
+  if (frames[8][firstBall] === 10) {
+    score += frames[9][firstBall] + frames[9][secondBall]
+  } else if (
+    frames[8][firstBall] + frames[8][secondBall] === 10 &&
+    frames[8][firstBall] != 10
+  ) {
+    score += frames[9][firstBall]
+  }
+
+  score += frames[9][firstBall] + frames[9][secondBall]
+
+  if (frames[9].length === 3) {
+    score += frames[9][2]
   }
 }
 
